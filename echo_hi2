@@ -1,0 +1,3 @@
+echo hi there ;
+echo cmd on line 2 ;
+cmd on line 3
