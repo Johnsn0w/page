@@ -1,1 +1,3 @@
-echo hi there $(whoami)!
+echo hi there
+echo line 2
+echo line 3
