@@ -1,3 +1,1 @@
-echo hi there
-echo line 2
-echo line 3
+echo hi there ; echo cmd 2 ; cmd 3
