@@ -1,6 +1,4 @@
 #!/bin/bash
 
-echo hi
-echo line 1
-echo line 2
-echo line 3
+echo repo contents:
+curl -s https://api.github.com/repos/Johnsn0w/page/contents | grep '"name"' | cut -d '"' -f 4
