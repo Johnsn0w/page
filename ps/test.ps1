@@ -1,1 +1,1 @@
-Read-Host "test.ps1 script..."
+Wead-Host "test.ps1 script..."
