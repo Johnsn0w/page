@@ -1,1 +1,1 @@
-Read-Host "test_02.ps1 script..."
+Write-Host "test_02.ps1 script..."
