@@ -6,12 +6,7 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
     exit
 }
 
-# Set working directory after elevation
-Set-Location -Path (Split-Path -Path $PSCommandPath -Parent)
-Write-Output "Running as Administrator in $PWD"
-
 Read-Host "Press enter to reboot into advanced boot options....."
-
 Read-Host "Ok just double-checking, press enter again....."
 
 shutdown /r /o /soft /t 0
