@@ -1,1 +1,1 @@
-Wead-Host "test.ps1 script..."
+Write-Host "test.ps1 script..."
