@@ -6,7 +6,7 @@ $folder      = "ps"
 $folder_path = "https://api.github.com/repos/$username/page/contents/$folder"
 $irm_path    = "https://raw.githubusercontent.com/$username/page/main/$folder/"
 
-$options = (Invoke-RestMethod "$folder_path").name
+$options = (Invoke-RestMethod "$folder_path") | Where-Object { $_.type -eq 'file' -and $_.name -like '*.ps1' } | Select-Object -ExpandProperty name
 
 # Display selection menu dynamically
 Write-Host "Select an option:"
