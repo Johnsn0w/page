@@ -1,0 +1,36 @@
+
+function Get-SystemInfo {
+    $Win32_Processor        = Get-CimInstance -ClassName Win32_Processor
+    $Win32_Os               = Get-CimInstance -ClassName Win32_OperatingSystem
+    $Win32_ComputerSystem   = Get-CimInstance -ClassName Win32_ComputerSystem
+    $Win32_Baseboard        = Get-CimInstance -ClassName Win32_Baseboard
+    $Win32_BIOS             = Get-CimInstance -ClassName Win32_BIOS
+    $Win32_SystemEnclosure  = Get-CimInstance -ClassName Win32_SystemEnclosure
+    $SmartData = Get-WmiObject -namespace root\wmi -class MSStorageDriver_FailurePredictStatus
+    $DrivesStatuses = ""
+    Get-WmiObject -namespace root\wmi -class MSStorageDriver_FailurePredictStatus |
+    ForEach-Object { 
+        $InstanceName = $_.InstanceName.Replace("SCSI\Disk&Ven_", " ")
+        $InstanceName = $InstanceName.Replace("&Prod_", " ")
+        $InstanceName = $InstanceName -replace "\\.*", ""
+
+        $DrivesStatuses += $InstanceName.Trim()
+        $DrivesStatuses += ": "
+        $DrivesStatuses += if ([bool]$_.PredictFailure) {"failing" } else {"pass"} 
+        $DrivesStatuses += "`n"
+    }  
+
+    [PSCustomObject]@{ 
+        cpu              = $Win32_Processor.Name 
+        cores            = $Win32_Processor.NumberOfCores
+        os               = $Win32_Os.Caption
+        ram              = "$([Math]::Round($Win32_ComputerSystem.TotalPhysicalMemory / 1GB))GB"
+        serial_baseboard = $Win32_Baseboard.SerialNumber
+        serial_bios      = $Win32_BIOS.SerialNumber
+        serial_enclosure = $Win32_SystemEnclosure.SerialNumber
+        asset_tag        = $Win32_SystemEnclosure.SMBIOSAssetTag
+    } | Format-List
+    $DrivesStatuses
+    # Write-Host ($result | Format-List)
+
+}
